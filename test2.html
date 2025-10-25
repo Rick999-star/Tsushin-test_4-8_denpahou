@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[4-8_電波法] 実力テスト 第2回 (20問)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        /* 選択肢のラジオボタンとラベルが縦に並ぶように調整 */
+        ul li {
+            list-style: none;
+            margin-left: 0;
+            padding-left: 0;
+        }
+    </style>
+    <!-- 
+      スクリプトは <head> から <body> の末尾に移動しました。
+      DOM要素が読み込まれる前にスクリプトが実行されて
+      コンテナが見つからないエラーを防ぐためです。
+    -->
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto px-4 py-12 max-w-3xl">
+
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800">[4-8 電波法] 実力テスト 第2回 (20問)</h1>
+            <p class="mt-3 text-lg text-gray-600">学習内容の理解度を確認しましょう。</p>
+        </header>
+
+        <!-- テスト問題コンテナ -->
+        <main id="test-container" class="space-y-8">
+            <!-- 問題はJavaScriptによってここに動的に挿入されます -->
+        </main>
+
+        <!-- 結果表示エリア -->
+        <div id="results-container" class="hidden mt-10 p-6 bg-white rounded-lg shadow-md">
+            <!-- 結果はJavaScriptによってここに挿入されます -->
+        </div>
+
+        <!-- 採点ボタン -->
+        <div class="text-center mt-8">
+            <button id="submit-test" class="bg-blue-600 text-white text-xl font-bold py-3 px-10 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                採点する
+            </button>
+        </div>
+        
+        <footer class="text-center mt-12 pt-8 border-t border-gray-300">
+            <a href="index.html" 
+               class="inline-block bg-gray-600 text-white text-lg font-bold py-3 px-8 rounded-lg shadow-md hover:bg-gray-700 transition-colors duration-300 ease-in-out">
+                トップページに戻る
+            </a>
+        </footer>
+
+    </div>
+
+    <!-- スクリプトを <body> の末尾に移動 -->
+    <script>
+        // テスト問題データ
+        const testQuestions = [
+            { questionId: "AT2-001", topic: "免許", questionType: "multipleChoice", questionText: "無線局免許は自動車に例えると何に相当するか。", options: [{ text: "車検証", isCorrect: true }, { text: "運転免許証", isCorrect: false }, { text: "ナンバープレート", isCorrect: false }, { text: "自動車保険証", isCorrect: false }] },
+            { questionId: "AT2-002", topic: "免許", questionType: "multipleChoice", questionText: "無線従事者免許は自動車に例えると何に相当するか。", options: [{ text: "車検証", isCorrect: false }, { text: "運転免許証", isCorrect: true }, { text: "ナンバープレート", isCorrect: false }, { text: "自動車保険証", isCorrect: false }] },
+            { questionId: "AT2-003", topic: "免許", questionType: "multipleChoice", questionText: "無線局免許状に記載される事項として、「電波法」上、誤っているものはどれか。", options: [{ text: "無線設備の設置場所", isCorrect: false }, { text: "電波の型式及び周波数", isCorrect: false }, { text: "主任無線従事者の資格", isCorrect: true }, { text: "通信の相手方", isCorrect: false }] },
+            { questionId: "AT2-004", topic: "免許", questionType: "fillInTheBlank", questionText: "無線局免許は「【 1 】」に、無線従事者免許は「【 2 】」に与えられる免許である。", correctAnswers: ["設備（モノ）", "人"] },
+            { questionId: "AT2-005", topic: "免許", questionType: "fillInTheBlank", questionText: "無線局免許状に記載される、他の無線局と区別するための信号を【 1 】という。", correctAnswers: ["識別信号", "コールサイン"] },
+            { questionId: "AT2-006", topic: "型式検定", questionType: "multipleChoice", questionText: "型式検定制度の目的として、最も適切なものはどれか。", options: [{ text: "すべての無線機を個別に厳しく検査するため。", isCorrect: false }, { text: "大量生産品の検査を効率化（近道）するため。", isCorrect: true }, { text: "無線従事者のスキルを認定するため。", isCorrect: false }, { text: "オーダーメイド品の品質を保証するため。", isCorrect: false }] },
+            { questionId: "AT2-007", topic: "型式検定", questionType: "multipleChoice", questionText: "型式検定に合格したときに「告示」される事項として、誤っているものはどれか。", options: [{ text: "型式検定合格の年月日", isCorrect: false }, { text: "型式検定申請の年月日", isCorrect: true }, { text: "検定番号", isCorrect: false }, { text: "機器の名称", isCorrect: false }] },
+            { questionId: "AT2-008", topic: "型式検定", questionType: "multipleChoice", questionText: "型式検定制度が適用される機器の典型例はどれか。", options: [{ text: "携帯電話（スマートフォン）", isCorrect: true }, { text: "空港の管制塔のレーダー", isCorrect: false }, { text: "軍用の特殊な通信機", isCorrect: false }, { text: "手作りのアマチュア無線機", isCorrect: false }] },
+            { questionId: "AT2-009", topic: "型式検定", questionType: "fillInTheBlank", questionText: "型式検定では、メーカーが提出する【 1 】（代表の1台）を検査する。", correctAnswers: ["サンプル"] },
+            { questionId: "AT2-010", topic: "型式検定", questionType: "fillInTheBlank", questionText: "型式検定に合格すると、総務大臣はその旨を世の中に広く知らせるために【 1 】する。", correctAnswers: ["告示"] },
+            { questionId: "AT2-011", topic: "通信の原則", questionType: "multipleChoice", questionText: "無線通信の原則に関する記述として、「電波法令」上、誤っているものはどれか。", options: [{ text: "無線通信を行うときは、自局の免許番号を付して、その出所を明らかにしなければならない。", isCorrect: true }, { text: "無線通信に使用する用語は、できる限り簡潔でなければならない。", isCorrect: false }, { text: "無線通信は、正確に行うものとし、通信上の誤りを知ったときは、直ちに訂正しなければならない。", isCorrect: false }, { text: "必要のない無線通信は、これを行ってはならない。", isCorrect: false }] },
+            { questionId: "AT2-012", topic: "通信の原則", questionType: "multipleChoice", questionText: "無線通信を行う際、その出所を明らかにするために付す「識別信号」を自動車に例えると何に相当するか。", options: [{ text: "車検証", isCorrect: false }, { text: "運転免許証の番号", isCorrect: false }, { text: "車のナンバープレート", isCorrect: true }, { text: "車種名", isCorrect: false }] },
+            { questionId: "AT2-013", topic: "通信の原則", questionType: "multipleChoice", questionText: "「電波はみんなの共有財産」という考え方から導かれる原則として、最も適切なものはどれか。", options: [{ text: "利用料金を払えばいくらでも使ってよい。", isCorrect: false }, { text: "必要のない通信は行わず、用語は簡潔にする。", isCorrect: true }, { text: "免許を持っていなくても使ってよい。", isCorrect: false }, { text: "通信の出所は秘密にしてよい。", isCorrect: false }] },
+            { questionId: "AT2-014", topic: "通信の原則", questionType: "fillInTheBlank", questionText: "通信上の誤りを知ったときは、直ちに【 1 】しなければならない。", correctAnswers: ["訂正"] },
+            { questionId: "AT2-015", topic: "通信の原則", questionType: "fillInTheBlank", questionText: "NHK東京ラジオ第1放送のコールサインは【 1 】である。", correctAnswers: ["JOAK"] },
+            { questionId: "AT2-016", topic: "非常通信", questionType: "multipleChoice", questionText: "無線局の運用において原則禁止されている「目的外使用」が、例外的に認められるのはどれか。", options: [{ text: "遭難通信・非常通信など", isCorrect: true }, { text: "業務が暇なときの私用通信", isCorrect: false }, { text: "免許状の有効期限が切れた後の通信", isCorrect: false }, { text: "免許状に記載されていない周波数での通信", isCorrect: false }] },
+            { questionId: "AT2-017", topic: "非常通信", questionType: "multipleChoice", questionText: "「非常通信」が認められる条件として、正しいものはどれか。", options: [{ text: "有線通信が混雑しているとき。", isCorrect: false }, { text: "有線通信が利用できないか、著しく困難なとき。", isCorrect: true }, { text: "無線機のテストをしたいとき。", isCorrect: false }, { text: "友人と連絡を取りたいとき。", isCorrect: false }] },
+            { questionId: "AT2-018", topic: "通信の原則", questionType: "multipleChoice", questionText: "無線通信の原則「用語は、できる限り簡潔でなければならない」に反する行為はどれか。", options: [{ text: "救助要請を手短に行う。", isCorrect: false }, { text: "通信エラーを即座に訂正する。", isCorrect: false }, { text: "必要ない世間話をだらだらと続ける。", isCorrect: true }, { text: "コールサインを名乗って通信を始める。", isCorrect: false }] },
+            { questionId: "AT2-019", topic: "非常通信", questionType: "multipleChoice", questionText: "電波法第52条で例外的に目的外使用が認められている「非常通信」の定義に関する穴埋め問題（ア：有線通信、イ：交通通信の確保）の正しい組み合わせはどれか。", options: [{ text: "ア：有線通信、イ：公共通信の確保", isCorrect: false }, { text: "ア：有線通信、イ：交通通信の確保", isCorrect: true }, { text: "ア：防災通信、イ：公共通信の確保", isCorrect: false }, { text: "ア：防災通信、イ：交通通信の確保", isCorrect: false }] },
+            { questionId: "AT2-020", topic: "通信の原則", questionType: "fillInTheBlank", questionText: "無線通信を行う際、自局の【 1 】ではなく【 2 】を付して出所を明らかにする必要がある。", correctAnswers: ["免許番号", "識別信号"] }
+        ];
+
+        // スクリプトを body の末尾に移動したので、DOMContentLoaded は不要になり、直接実行します。
+        
+        const testContainer = document.getElementById('test-container');
+        const submitButton = document.getElementById('submit-test');
+        const resultsContainer = document.getElementById('results-container');
+        let userAnswers = {}; // ユーザーの解答を保存
+
+        if (!testContainer) {
+             console.error("Error: 'test-container' element not found.");
+        } else {
+            // 問題を描画
+            testQuestions.forEach((q, index) => {
+                const questionIndex = index + 1;
+                const card = document.createElement('div');
+                card.className = 'bg-white p-6 rounded-lg shadow-md';
+                
+                // 穴埋め問題の 【 】 を ( ) に置換
+                let questionText = q.questionText.replace(/【 1 】/g, ' ( 1 ) ').replace(/【 2 】/g, ' ( 2 ) ');
+
+                let questionHtml = `<h2 class="text-xl font-bold mb-4">
+                                        <span class="text-blue-600">問題 ${questionIndex}</span>
+                                        <span class="ml-2 text-gray-800">${questionText}</span>
+                                    </h2>`;
+
+                if (q.questionType === 'multipleChoice') {
+                    questionHtml += '<ul class="space-y-3">';
+                    q.options.forEach((opt, i) => {
+                        const inputId = `${q.questionId}-${i}`;
+                        questionHtml += `
+                            <li class="flex items-center">
+                                <input type="radio" id="${inputId}" name="${q.questionId}" value="${opt.text}" class="mr-3 h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="${inputId}" class="text-gray-700">${String.fromCharCode(9312 + i)} ${opt.text}</label>
+                            </li>`;
+                    });
+                    questionHtml += '</ul>';
+                } else if (q.questionType === 'fillInTheBlank') {
+                    let blankHtml = '<div class="space-y-3 mt-3">';
+                    q.correctAnswers.forEach((_, i) => {
+                        const inputId = `${q.questionId}-blank${i}`;
+                        blankHtml += `
+                            <div class="flex items-center">
+                                <label for="${inputId}" class="mr-2 font-semibold text-gray-700">( ${i + 1} ) :</label>
+                                <input type="text" id="${inputId}" name="${q.questionId}-blank${i}" class="w-full md:w-1/2 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            </div>`;
+                    });
+                    blankHtml += '</div>';
+                    questionHtml += blankHtml;
+                }
+                
+                card.innerHTML = questionHtml;
+                testContainer.appendChild(card);
+            });
+
+            // 解答を保存するイベントリスナー
+            testContainer.addEventListener('change', (e) => {
+                if (e.target.type === 'radio') {
+                    userAnswers[e.target.name] = e.target.value;
+                }
+            });
+            testContainer.addEventListener('input', (e) => {
+                 if (e.target.type === 'text') {
+                    userAnswers[e.target.name] = e.target.value.trim();
+                }
+            });
+        } // else (testContainer)
+
+        if (submitButton) {
+            // 採点ボタンのイベントリスナー
+            submitButton.addEventListener('click', () => {
+                let score = 0;
+                let resultsHtml = `<h2 class="text-2xl font-bold mb-6 text-center">採点結果</h2>`;
+                resultsHtml += `<div class="space-y-6">`;
+
+                testQuestions.forEach((q, index) => {
+                    const questionIndex = index + 1;
+                    let isCorrect = false;
+                    let userAnswerText = "";
+                    let correctAnswerText = "";
+                    // 穴埋め問題の 【 】 を ( ) に置換
+                    let questionText = q.questionText.replace(/【 1 】/g, ' ( 1 ) ').replace(/【 2 】/g, ' ( 2 ) ');
+
+                    if (q.questionType === 'multipleChoice') {
+                        const correctOption = q.options.find(opt => opt.isCorrect);
+                        correctAnswerText = correctOption ? correctOption.text : "N/A";
+                        userAnswerText = userAnswers[q.questionId] || "（未解答）";
+                        if (userAnswerText === correctAnswerText) {
+                            isCorrect = true;
+                            score++;
+                        }
+                    } else if (q.questionType === 'fillInTheBlank') {
+                        let correctCount = 0;
+                        let userAnswersList = [];
+                        
+                        // 正解の配列（複数の答えがある場合）を処理
+                        const correctAnswersNested = q.correctAnswers.map(ans => Array.isArray(ans) ? ans : [ans]);
+
+                        correctAnswersNested.forEach((ansOptions, i) => {
+                            const inputId = `${q.questionId}-blank${i}`;
+                            const userAnswer = userAnswers[inputId] || "（未解答）";
+                            userAnswersList.push(`(${i+1}) ${userAnswer}`);
+                            
+                            // ユーザーの答えが正解オプションのいずれかに含まれているか確認
+                            if (ansOptions.includes(userAnswer)) {
+                                correctCount++;
+                            }
+                        });
+                        
+                        isCorrect = (correctCount === correctAnswersNested.length);
+                        if (isCorrect) {
+                            score++;
+                        }
+                        
+                        userAnswerText = userAnswersList.join(', ');
+                        correctAnswerText = correctAnswersNested.map((ansOptions, i) => 
+                            `(${i+1}) ${ansOptions.join(' または ')}`
+                        ).join(', ');
+                    }
+
+                    // 結果カード
+                    resultsHtml += `
+                        <div class="p-4 rounded-lg ${isCorrect ? 'bg-green-50 border border-green-300' : 'bg-red-50 border border-red-300'}">
+                            <h3 class="text-lg font-bold mb-3">
+                                <span class="${isCorrect ? 'text-green-700' : 'text-red-700'}">${isCorrect ? '正解' : '不正解'}</span>
+                                <span class="ml-3 text-gray-800">問題 ${questionIndex}</span>
+                            </h3>
+                            <p class="text-base text-gray-700 mb-2"><strong>問題文:</strong> ${questionText}</p>
+                            <p class="text-base mb-2"><strong>あなたの解答:</strong> <span class="${isCorrect ? 'text-gray-700' : 'text-red-600 font-semibold'}">${userAnswerText}</span></p>
+                            <p class="text-base text-green-800"><strong>正解:</strong> ${correctAnswerText}</p>
+                        </div>
+                    `;
+                });
+
+                // 総合スコア
+                const totalScoreHtml = `
+                    <div class="text-center py-6 bg-blue-50 rounded-lg border border-blue-200">
+                        <p class="text-2xl font-bold text-blue-800">
+                            ${testQuestions.length}問中 <span class="text-4xl mx-1">${score}</span> 問正解です！
+                        </p>
+                        <p class="text-xl font-semibold text-blue-700 mt-2">
+                            正答率: ${((score / testQuestions.length) * 100).toFixed(0)}%
+                        </p>
+                    </div>
+                `;
+                
+                resultsHtml += `</div>`; // space-y-6
+                resultsContainer.innerHTML = totalScoreHtml + resultsHtml; // スコアを先頭に
+                resultsContainer.classList.remove('hidden');
+                
+                // 結果表示位置までスクロール
+                resultsContainer.scrollIntoView({ behavior: 'smooth' });
+            });
+        } // if (submitButton)
+    </script>
+
+</body>
+</html>
+
