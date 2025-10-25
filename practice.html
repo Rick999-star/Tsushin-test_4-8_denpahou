@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[4-8_電波法] 練習問題 (30問)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+    </style>
+
+    <!-- 
+      スクリプトは <head> から <body> の末尾に移動しました。
+      DOM要素が読み込まれる前にスクリプトが実行されて
+      'practice-container' が見つからないエラーを防ぐためです。
+    -->
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto px-4 py-12 max-w-3xl">
+
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800">[4-8 電波法] 練習問題 (30問)</h1>
+            <p class="mt-3 text-lg text-gray-600">PDF資料の重要ポイント（太字・赤字）を基にした確認問題です。</p>
+        </header>
+
+        <!-- 練習問題コンテナ -->
+        <main id="practice-container" class="space-y-8">
+            <!-- 問題はJavaScriptによってここに動的に挿入されます -->
+        </main>
+
+        <footer class="text-center mt-12 pt-8 border-t border-gray-300">
+            <a href="index.html" 
+               class="inline-block bg-gray-600 text-white text-lg font-bold py-3 px-8 rounded-lg shadow-md hover:bg-gray-700 transition-colors duration-300 ease-in-out">
+                トップページに戻る
+            </a>
+        </footer>
+
+    </div>
+
+    <!-- スクリプトを <body> の末尾に移動 -->
+    <script>
+        // 練習問題データ (JSONファイルから)
+        // ※解説はPDF資料に基づき、このスクリプト内で補足しています。
+        const practiceQuestions = [
+            // --- 1. 免許 (PQ001 - PQ005) ---
+            { questionId: "PQ001", topic: "免許", questionType: "multipleChoice", questionText: "無線関係の「免許」に関する記述として、最も適切なものはどれか。", options: [{ text: "無線局免許は「人」に対する免許である。", isCorrect: false }, { text: "無線従事者免許は「設備」に対する免許である。", isCorrect: false }, { text: "無線局免許は「自動車の運転免許証」に例えられる。", isCorrect: false }, { text: "無線従事者免許は「人」が操作するスキルに対する免許である。", isCorrect: true }], explanation: "無線局免許は「設備（モノ）」に対する免許（例：車検証）、無線従事者免許は「人」のスキルに対する免許（例：運転免許証）です。" },
+            { questionId: "PQ002", topic: "免許", questionType: "multipleChoice", questionText: "無線局の免許状に記載される事項として、「電波法」上、正しいものはどれか。", options: [{ text: "主任無線従事者の資格", isCorrect: false }, { text: "無線従事者の氏名", isCorrect: false }, { text: "無線設備の設置場所", isCorrect: true }, { text: "無線従事者免許の番号", isCorrect: false }], explanation: "無線局免許状には、その「設備」に関する情報（設置場所、電波の型式、周波数など）が記載されます。「主任無線従事者の資格」などは「人」に関する情報のため記載されません。" },
+            { questionId: "PQ003", topic: "免許", questionType: "multipleChoice", questionText: "無線局免許は「設備（モノ）」に、無線従事者免許は「人」に与えられる。この例えとして最も適切な組み合わせはどれか。", options: [{ text: "無線局免許：運転免許証、無線従事者免許：車検証", isCorrect: false }, { text: "無線局免許：車検証、無線従事者免許：運転免許証", isCorrect: true }, { text: "無線局免許：ナンバープレート、無線従事者免許：保険証", isCorrect: false }, { text: "無線局免許：保険証、無線従事者免許：ナンバープレート", isCorrect: false }], explanation: "「設備」である自動車の検査証が「車検証」、「人」のスキルを証明するのが「運転免許証」です。この例えが最も適切です。" },
+            { questionId: "PQ004", topic: "免許", questionType: "fillInTheBlank", questionText: "無線局免許は「【 1 】」に、無線従事者免許は「【 2 】」に与えられる免許である。", correctAnswers: ["設備（モノ）", "人"] , explanation: "電波法では、免許の対象が「設備（モノ）」なのか「人」なのかを明確に区別しています。" },
+            { questionId: "PQ005", topic: "免許", questionType: "fillInTheBlank", questionText: "無線局免許状に記載される、他の無線局と区別するための信号を【 1 】（または【 2 】）という。", correctAnswers: [["識別信号", "コールサイン"], ["コールサイン", "識別信号"]] , explanation: "識別信号は、無線局ごとに割り当てられるユニークな符号です。一般的にコールサインと呼ばれます。（例：JOAK）" },
+
+            // --- 2. 型式検定 (PQ006 - PQ010) ---
+            { questionId: "PQ006", topic: "型式検定", questionType: "multipleChoice", questionText: "電波法における「型式検定」制度の主な目的はどれか。", options: [{ text: "オーダーメイドの無線機（1点モノ）の品質を保証するため。", isCorrect: false }, { text: "大量生産される無線機（同じモノ）の検査を効率化（近道）するため。", isCorrect: true }, { text: "無線従事者の技術レベルを認定するため。", isCorrect: false }, { text: "すべての無線機を個別に厳しく検査するため。", isCorrect: false }], explanation: "型式検定は、大量生産品（例：携帯電話）について、メーカーが提出するサンプル（代表の1台）を検査する制度です。これにより、個々の機器の検査を簡略化（近道）できます。" },
+            { questionId: "PQ007", topic: "型式検定", questionType: "multipleChoice", questionText: "型式検定に合格した機器について、総務大臣が行う「告示」に含まれる事項として、正しいものはどれか。", options: [{ text: "機器の販売価格", isCorrect: false }, { text: "検定番号", isCorrect: true }, { text: "申請者の氏名", isCorrect: false }, { text: "機器の製造個数", isCorrect: false }], explanation: "告示には「検定番号」「機器の名称」「合格の年月日」などが含まれます。これにより、どの型式が合格したかを世の中が知ることができます。" },
+            { questionId: "PQ008", topic: "型式検定", questionType: "multipleChoice", questionText: "型式検定制度が適用される機器の典型例はどれか。", options: [{ text: "人工衛星に搭載される特殊な通信機", isCorrect: false }, { text: "軍事用の暗号通信機", isCorrect: false }, { text: "大量生産される携帯電話（スマートフォン）", isCorrect: true }, { text: "アマチュア無線家が自作した無線機", isCorrect: false }], explanation: "型式検定は「大量生産品」を対象としています。携帯電話やスマートフォンはその典型例です。" },
+            { questionId: "PQ009", topic: "型式検定", questionType: "fillInTheBlank", questionText: "型式検定では、メーカーが提出する「【 1 】」（代表の1台）を検査する。", correctAnswers: ["サンプル"] , explanation: "すべての製品ではなく、代表の1台（サンプル）を検査することで効率化を図っています。" },
+            { questionId: "PQ010", topic: "型式検定", questionType: "fillInTheBlank", questionText: "型式検定に合格すると、総務大臣はその旨を世の中に広く知らせるために「【 1 】」する。", correctAnswers: ["告示"] , explanation: "告示とは、国や地方公共団体が決定した事項を、広く一般に知らせる行為です。" },
+
+            // --- 3. 通信の原則 (PQ011 - PQ020) ---
+            { questionId: "PQ011", topic: "通信の原則", questionType: "multipleChoice", questionText: "無線通信の原則に関する記述として、「電波法令」上、誤っているものはどれか。", options: [{ text: "無線通信を行うときは、自局の識別信号を付して、その出所を明らかにしなければならない。", isCorrect: false }, { text: "無線通信に使用する用語は、できる限り簡潔でなければならない。", isCorrect: false }, { text: "無線通信は、正確に行うものとし、通信上の誤りを知ったときは、直ちに訂正しなければならない。", isCorrect: false }, { text: "無線通信を行うときは、自局の免許番号を付して、その出所を明らかにしなければならない。", isCorrect: true }], explanation: "出所を明らかにするために付すのは「免許番号」ではなく「識別信号（コールサイン）」です。（電波法第57条）" },
+            { questionId: "PQ012", topic: "通信の原則", questionType: "multipleChoice", questionText: "無線通信を行う際、その出所を明らかにするために付す「識別信号」を、自動車に例えると何に相当するか。", options: [{ text: "車検証", isCorrect: false }, { text: "運転免許証の番号", isCorrect: false }, { text: "車のナンバープレート", isCorrect: true }, { text: "車種名", isCorrect: false }], explanation: "識別信号（コールサイン）は、個々の無線局を識別するためのもので、自動車の「ナンバープレート」に例えられます。" },
+            { questionId: "PQ013", topic: "通信の原則", questionType: "multipleChoice", questionText: "「電波はみんなの共有財産」という考え方から導かれる原則として、最も適切なものはどれか。", options: [{ text: "利用料金を払えばいくらでも使ってよい。", isCorrect: false }, { text: "必要のない通信は行わず、用語は簡潔にする。", isCorrect: true }, { text: "免許を持っていなくても使ってよい。", isCorrect: false }, { text: "通信の出所は秘密にしてよい。", isCorrect: false }], explanation: "電波は有限で貴重な資源（共有財産）であるため、効率的に利用する必要があります。そのため「必要のない通信の禁止」や「用語の簡潔性」が求められます。（電波法第56条、第58条）" },
+            { questionId: "PQ014", topic: "通信の原則", questionType: "multipleChoice", questionText: "通信の原則「用語は、できる限り簡潔でなければならない」に反する行為はどれか。", options: [{ text: "救助要請を手短に行う。", isCorrect: false }, { text: "通信エラーを即座に訂正する。", isCorrect: false }, { text: "必要ない世間話をだらだらと続ける。", isCorrect: true }, { text: "コールサインを名乗って通信を始める。", isCorrect: false }], explanation: "「必要のない無線通信は、これを行ってはならない」および「無線通信に使用する用語は、できる限り簡潔でなければならない」という原則に反します。" },
+            { questionId: "PQ015", topic: "通信の原則", questionType: "multipleChoice", questionText: "無線通信の原則として、法令上定められていないものはどれか。", options: [{ text: "必要のない通信は行ってはならない。", isCorrect: false }, { text: "通信の出所を明らかにするため、識別信号を付さねばならない。", isCorrect: false }, { text: "通信上の誤りは直ちに訂正しなければならない。", isCorrect: false }, { text: "通信速度はできる限り高速でなければならない。", isCorrect: true }], explanation: "「通信速度」に関する規定は、これらの一般的な原則の中には含まれていません。「簡潔性」や「正確性」が求められます。" },
+            { questionId: "PQ016", topic: "通信の原則", questionType: "fillInTheBlank", questionText: "電波は国民の共有財産であるため、無線通信は【 1 】に行ってはならない。", correctAnswers: ["必要のない"] , explanation: "電波法第56条「何人も、必要のない無線通信は、これを行ってはならない。」" },
+            { questionId: "PQ017", topic: "通信の原則", questionType: "fillInTheBlank", questionText: "無線通信は、【 1 】に行うものとし、通信上の誤りを知ったときは、直ちに【 2 】しなければならない。", correctAnswers: ["正確", "訂正"] , explanation: "電波法第58条「無線通信は、正確に行うものとし...」" },
+            { questionId: "PQ018", topic: "通信の原則", questionType: "fillInTheBlank", questionText: "無線通信に使用する用語は、できる限り【 1 】でなければならない。", correctAnswers: ["簡潔"] , explanation: "電波法第58条「...無線通信に使用する用語は、できる限り簡潔でなければならない。」" },
+            { questionId: "PQ019", topic: "通信の原則", questionType: "fillInTheBlank", questionText: "無線通信を行うときは、自局の【 1 】を付して、その【 2 】を明らかにしなければならない。", correctAnswers: ["識別信号", "出所"] , explanation: "電波法第57条「無線通信を行うときは、自局の識別信号を付して、その出所を明らかにしなければならない。」" },
+            { questionId: "PQ020", topic: "通信の原則", questionType: "fillInTheBlank", questionText: "NHK東京ラジオ第1放送のコールサイン（識別信号）は【 1 】である。", correctAnswers: ["JOAK"] , explanation: "JOAKは日本のラジオ放送で最も有名なコールサインの一つです。" },
+
+            // --- 4. 目的外使用の禁止 (PQ021 - PQ025) ---
+            { questionId: "PQ021", topic: "目的外使用", questionType: "multipleChoice", questionText: "無線局の運用において原則禁止されている「目的外使用」とは何か。", options: [{ text: "免許状に記載された目的（例：放送事業）以外の目的（例：私用の雑談）で通信すること。", isCorrect: true }, { text: "免許状に記載された周波数を使用すること。", isCorrect: false }, { text: "免許状に記載された識別信号を使用すること。", isCorrect: false }, { text: "免許状に記載された有効期間内に通信すること。", isCorrect: false }], explanation: "無線局は、免許状に記載された「目的」の範囲内でしか運用できません。これに違反することを「目的外使用」といいます。（電波法第52条）" },
+            { questionId: "PQ022", topic: "目的外使用", questionType: "multipleChoice", questionText: "無線局の「目的外使用」が例外的に認められるのは、次のうちどれか。", options: [{ text: "業務が暇なときの私用通信", isCorrect: false }, { text: "免許状の有効期限が切れた後の通信", isCorrect: false }, { text: "遭難通信・非常通信など", isCorrect: true }, { text: "免許状に記載されていない周波数での通信", isCorrect: false }], explanation: "電波法第52条では、例外として「遭難通信」「緊急通信」「安全通信」「非常通信」などを認めています。" },
+            { questionId: "PQ023", topic: "目的外使用", questionType: "multipleChoice", questionText: "電波法第52条で例外的に認められている通信（目的外使用）に含まれないものはどれか。", options: [{ text: "遭難通信", isCorrect: false }, { text: "緊急通信", isCorrect: false }, { text: "安全通信", isCorrect: false }, { text: "日常通信", isCorrect: true }], explanation: "「日常通信」は免許状に記載された目的の範囲内で行うべきものであり、目的外使用の例外には含まれません。" },
+            { questionId: "PQ024", topic: "目的外使用", questionType: "fillInTheBlank", questionText: "無線局は、免許状に記載された【 1 】又は【 2 】の範囲を超えて運用してはならない。", correctAnswers: [["目的", "通信の相手方"], ["通信の相手方", "目的"]] , explanation: "電波法第52条の条文そのものです。「目的」「通信の相手方」「通信事項」の範囲が定められています。" },
+            { questionId: "PQ025", topic: "目的外使用", questionType: "fillInTheBlank", questionText: "「目的外使用」が例外的に認められる通信の（資料で挙げられた）4つの例は、「遭難通信」「緊急通信」「安全通信」と【 1 】である。", correctAnswers: ["非常通信"] , explanation: "電pa法第52条で列挙されている、特に重要な例外通信です。" },
+
+            // --- 5. 非常通信 (PQ026 - PQ030) ---
+            { questionId: "PQ026", topic: "非常通信", questionType: "multipleChoice", questionText: "「非常通信」が認められる条件として、正しいものはどれか。", options: [{ text: "有線通信が混雑しているとき。", isCorrect: false }, { text: "有線通信が利用できないか、著しく困難なとき。", isCorrect: true }, { text: "無線機のテストをしたいとき。", isCorrect: false }, { text: "友人と連絡を取りたいとき。", isCorrect: false }], explanation: "非常通信は、地震、台風、火災などの「非常の場合」に、「有線通信が利用できない（断線など）か、著しく困難」な場合にのみ認められます。" },
+            { questionId: "PQ027", topic: "非常通信", questionType: "multipleChoice", questionText: "「非常通信」の目的として、電波法で定められているものはどれか。", options: [{ text: "人命の救助、災害の救援", isCorrect: true }, { text: "スポーツイベントの中継", isCorrect: false }, { text: "企業の営利活動", isCorrect: false }, { text: "政治的な宣伝活動", isCorrect: false }], explanation: "非常通信の目的は「人命の救助、災害の救援、交通通信の確保、または秩序の維持」のために行われるものと厳格に定められています。" },
+            { questionId: "PQ028", topic: "非常通信", questionType: "multipleChoice", questionText: "「非常通信」の目的として、「人命の救助」「災害の救援」の他に資料で挙げられている2つの組み合わせとして正しいものはどれか。", options: [{ text: "交通通信の確保、秩序の維持", isCorrect: true }, { text: "スポーツ中継、天気予報", isCorrect: false }, { text: "営利活動の支援、政治活動", isCorrect: false }, { text: "国際親善、文化交流", isCorrect: false }], explanation: "電波法で定められた非常通信の4つの目的は「人命の救JUDGE」「災害の救援」「交通通信の確保」「秩序の維持」です。" },
+            { questionId: "PQ029", topic: "非常通信", questionType: "fillInTheBlank", questionText: "「非常通信」は、地震、台風、火災などの非常の場合に、【 1 】が利用できないか、著しく困難なときに行うことができる。", correctAnswers: ["有線通信"] , explanation: "あくまで有線通信（電話線など）が使えない場合の緊急措置として、無線の目的外使用が認められる、という位置づけです。" },
+            { questionId: "PQ030", topic: "非常通信", questionType: "multipleChoice", questionText: "「交通通信の確保」が非常通信の目的として重要な理由として、資料で暗に示されている内容はどれか。", options: [{ text: "通信衛星の軌道を確保するため。", isCorrect: false }, { text: "救急車や支援物資のトラックなどの移動を可能にするため。", isCorrect: true }, { text: "一般市民の交通費を精算するため。", isCorrect: false }, { text: "観光情報を発信するため。", isCorrect: false }], explanation: "災害時、救助や救援活動を行う車両（救急車、消防車、物資輸送トラックなど）が移動できなければ意味がありません。そのため「交通通信の確保」が重要な目的とされています。" }
+        ];
+
+        // DOMが完全に読み込まれてからスクリプトを実行するように修正
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('practice-container');
+            
+            if (!container) {
+                // コンテナが見つからない場合、コンソールにエラーを出力
+                console.error("Error: 'practice-container' element not found.");
+            } else {
+                // コンテナが見つかった場合のみ、問題を描画
+                practiceQuestions.forEach((q, index) => {
+                    const questionIndex = index + 1;
+                    
+                    // 設問カード
+                    const card = document.createElement('div');
+                    card.className = 'bg-white p-6 rounded-lg shadow-md';
+                    
+                    // 問題番号と問題文
+                    let questionHtml = `<h2 class="text-xl font-bold mb-4">
+                                            <span class="text-blue-600">問題 ${questionIndex}</span>
+                                            <span class="ml-2 text-gray-800">${q.questionText}</span>
+                                        </h2>`;
+
+                    // 選択肢 (4択の場合)
+                    if (q.questionType === 'multipleChoice' && q.options.length > 0) {
+                        questionHtml += '<ul class="space-y-2 mb-4 list-none pl-0">';
+                        q.options.forEach((opt, i) => {
+                            questionHtml += `<li class="ml-0 pl-0 text-gray-700">${String.fromCharCode(9312 + i)} ${opt.text}</li>`; // ①, ②, ...
+                        });
+                        questionHtml += '</ul>';
+                    }
+
+                    // 正解のテキストを取得
+                    let correctAnswerText = "";
+                    if (q.questionType === 'multipleChoice') {
+                        const correctOption = q.options.find(opt => opt.isCorrect);
+                        correctAnswerText = correctOption ? correctOption.text : "N/A";
+                    } else {
+                        correctAnswerText = q.correctAnswers.join(' または ');
+                    }
+
+                    // 解答・解説エリア (最初は非表示)
+                    const answerId = `answer-${q.questionId}`;
+                    const answerDiv = document.createElement('div');
+                    answerDiv.id = answerId;
+                    answerDiv.className = 'hidden mt-4 pt-4 border-t border-gray-200';
+                    answerDiv.innerHTML = `
+                        <p class="text-lg font-bold text-green-700">【正解】</p>
+                        <p class="text-base mb-3">${correctAnswerText}</p>
+                        <p class="text-lg font-bold text-gray-700">【解説】</p>
+                        <p class="text-base text-gray-600">${q.explanation || '解説はありません。'}</p>
+                    `;
+
+                    // 解答・解説ボタン
+                    const button = document.createElement('button');
+                    button.className = 'mt-4 px-4 py-2 bg-gray-200 text-gray-800 font-semibold rounded-md hover:bg-gray-300 transition-colors';
+                    button.textContent = '解答・解説を表示';
+                    button.setAttribute('data-target', answerId);
+
+                    // ボタンのクリックイベント
+                    button.addEventListener('click', () => {
+                        const targetDiv = document.getElementById(button.dataset.target);
+                        // targetDivが存在するかを念のため確認
+                        if (targetDiv) {
+                            const isHidden = targetDiv.classList.toggle('hidden');
+                            button.textContent = isHidden ? '解答・解説を表示' : '解答・解説を隠す';
+                        }
+                    });
+
+                    card.innerHTML = questionHtml;
+                    card.appendChild(button);
+                    card.appendChild(answerDiv);
+                    container.appendChild(card);
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
+
+
